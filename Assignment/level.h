@@ -20,6 +20,9 @@ class Level : public GameObject
 	std::vector<std::string> m_block_names;
 	std::vector<Enemy> m_enemies;
 	const float m_block_size = 1.0f;
+	float checkpointPosX = 10.0f;
+	float checkpointPosY = 6.0f;
+	float checkpointRadius = 1.5f;
 	graphics::Brush m_block_brush;
 	graphics::Brush m_block_brush_debug;
 
@@ -37,6 +40,7 @@ public:
 	void update(float dt) override;	//
 	void draw() override;		//
 	void init() override;		//
+	bool checkCheckpoint();
 
 	Level(const std::string& name = "Level0");		//
 	~Level() override;		//

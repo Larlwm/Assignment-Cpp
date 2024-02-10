@@ -3,6 +3,7 @@
 #include "player.h"
 #include "util.h"
 #include "enemy.h"
+#include <cmath>
 
 
 void Level::drawBlock(int i)
@@ -239,6 +240,14 @@ void Level::init()
 	m_enemies.push_back(Enemy("Enemy0", 6.0f, 5.0f));
 	m_enemies.push_back(Enemy("Enemy0", 5.0f, 5.0f));
 
+}
+
+bool Level::checkCheckpoint()
+{
+	if (fabs(m_state->getPlayer()->m_pos_x - checkpointPosX) <= checkpointRadius && fabs(m_state->getPlayer()->m_pos_y - checkpointPosY) <= checkpointRadius) {
+		return true;
+	}
+	return false;
 }
 
 Level::Level(const std::string& name) : GameObject(name)

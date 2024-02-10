@@ -44,7 +44,7 @@ Screens::Screens(const std::string name, const std::string assetpath, const std:
 
 Screens::~Screens()
 {
-	delete &m_brush_background;
+	//delete &m_brush_background;
 	m_state->incrLevelCounter();
 
 }

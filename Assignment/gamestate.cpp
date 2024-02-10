@@ -5,6 +5,7 @@
 #include "screens.h"			//Extra include, xreiazetai
 #include <thread>
 #include <chrono>
+#include <iostream>
 
 using namespace std::chrono_literals;
 
@@ -22,6 +23,7 @@ GameState::~GameState()						//main destructor i guess
 		
 }
 
+
 void GameState::changeLevel(const std::string& levelName)			//(Prosthiki) Used to change level 
 {
 	if (m_current_level)
@@ -30,8 +32,8 @@ void GameState::changeLevel(const std::string& levelName)			//(Prosthiki) Used t
 		m_current_level = nullptr;
 	}
 
-		m_current_level = new Level(levelName);
-		m_current_level->init();
+	m_current_level = new Level(levelName);
+	m_current_level->init();
 
 	m_player = new Player("Player");
 	m_player->init();
@@ -78,7 +80,7 @@ bool GameState::init()							//THIS IS WHERE I PUT THE LEVELS
 	m_player = new Player("Player");
 	m_player->init();*/
 
-	/*m_current_level = new Screens("MainMenu", "menu.png", "Press Space to start game");
+	m_current_level = new Screens("MainMenu", "menu.png", "Press Space to start game");
 	m_current_level->init();
 
 	graphics::preloadBitmaps(getAssetDir());
@@ -115,13 +117,24 @@ void GameState::update(float dt)
 		return;
 
 	m_current_level->update(dt);
+	std::cout << "level counter is: " << m_level_counter << "\n";
 
 	m_debugging = graphics::getKeyState(graphics::SCANCODE_0);
 	
-	if (m_player != 0) {
-		if (getPlayer()->m_pos_x > 8.0f) 						//EDW O DESTRUCTOR KAI GENIKA EDW OI ALLAGES LEVEL MALLON
+//if (m_player != 0) {
+		//if (getPlayer()->m_pos_x > 8.0f) 						//EDW O DESTRUCTOR KAI GENIKA EDW OI ALLAGES LEVEL MALLON
+			//changeLevel("1.lvl");
+		if (m_level_counter == 1) {
 			changeLevel("1.lvl");
-	}
+
+		} else if (m_level_counter > 1 && m_current_level->checkCheckpoint())
+		{
+			changeLevel("lvl.2");
+			std::cout << "In lvl 2 \n";
+			std::cout << "Level counter is :" << m_level_counter;
+		}
+
+//	}
 
 }
 
